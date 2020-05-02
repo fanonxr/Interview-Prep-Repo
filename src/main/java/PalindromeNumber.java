@@ -33,4 +33,28 @@ public class PalindromeNumber {
 
     return true;
   }
+
+  public static boolean isPalindromeString(String s) {
+    int i = 0, j = s.length() - 1;
+    while (i < j) {
+      while (i < j && isAlphaNumeric(s.charAt(i))) {
+        i++;
+      }
+      while (i < j && isAlphaNumeric(s.charAt(j))) {
+        j--;
+      }
+      // compare to see if they equal or not
+      if (Character.toLowerCase(s.charAt(i)) != Character.toLowerCase(s.charAt(j))) {
+        return false;
+      }
+      i++;
+      j--;
+    }
+
+    return true;
+  }
+
+  private static boolean isAlphaNumeric(char c) {
+    return !Character.isLetter(c) && !Character.isDigit(c);
+  }
 }
