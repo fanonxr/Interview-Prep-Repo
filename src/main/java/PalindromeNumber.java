@@ -57,4 +57,28 @@ public class PalindromeNumber {
   private static boolean isAlphaNumeric(char c) {
     return !Character.isLetter(c) && !Character.isDigit(c);
   }
+
+  // method to see if a number is a palidrome
+  public static boolean palindromeNumber(int n) {
+    // check if the number is negative
+    if (n < 0) return false;
+
+    double log = Math.log10(n);
+    int totalDigits = (int) Math.floor(log) + 1;
+    int mask = (int) Math.pow(10, totalDigits - 1);
+
+    for (int i = 0; i < (totalDigits / 2); i++) {
+      int leftDigit = n / mask;
+      int rightDigit = n % 10;
+
+      // check if the digits are not the same
+      if (leftDigit != rightDigit) return false;
+      // move to the right from the left digit
+      n %= mask;
+      n /= 10;
+      // move to the left from the right digit
+      mask /= 100;
+    }
+    return true;
+  }
 }
