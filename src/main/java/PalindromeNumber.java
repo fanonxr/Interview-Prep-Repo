@@ -81,4 +81,23 @@ public class PalindromeNumber {
     }
     return true;
   }
+
+  public int reverseBits(int input) {
+    int output = 0;
+
+    while (input != 0) {
+      // shift the output to the left by 1
+      output = output << 1;
+
+      // if the last digit of the input is 1
+      if ((input & 1) == 1) {
+        // add it to the output
+        output |= 1;
+      }
+
+      // shift the input to the right by 1
+      input = input >> 1;
+    }
+    return output;
+  }
 }
