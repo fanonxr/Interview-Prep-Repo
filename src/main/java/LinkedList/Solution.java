@@ -46,4 +46,23 @@ public class Solution {
     // return head.next because head is a ref to dummy back when it was the first ref
     return head.next;
   }
+
+  public ListNode oddEvenList(ListNode head) {
+    if (head == null || head.next == null) return head;
+
+    // create our pointers for even and odds
+    ListNode even = head;
+    ListNode odd = head.next;
+    ListNode oddHead = odd;
+
+    while (odd != null && odd.next != null) {
+      even.next = odd.next;
+      even = odd.next;
+      odd.next = even.next;
+      odd = even.next;
+    }
+
+    even.next = oddHead;
+    return head;
+  }
 }

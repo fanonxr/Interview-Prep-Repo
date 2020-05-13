@@ -67,4 +67,47 @@ public class Solution {
     }
     return false;
   }
+
+  /** Find the largest smallest key from the integer that is passed in
+   * */
+  public int findLargestSmallestKey(TreeNode root, int num) {
+    if (root == null) return -1;
+    // keep track of the roots key value every time you progress down the tree
+    int keyValue = -1;
+
+    // traverse through the tree
+    while (root != null) {
+      // check to traverse the left or the right
+      if (root.val > num) {
+        keyValue = root.val;
+        root = root.left;
+      } else {
+        keyValue = root.val;
+        root = root.right;
+      }
+    }
+
+    return keyValue;
+  }
+
+  /** Checking if a binary tree is symmertic
+   * */
+  public boolean isSymmetric(TreeNode root) {
+    // base case for the root
+    if (root == null) return true;
+    // check symmertry recursively
+    return checkSymmetry(root.left, root.right);
+  }
+
+  public boolean checkSymmetry(TreeNode leftNode, TreeNode rightNode) {
+    // check if the left and right node are null
+    if (leftNode == null && rightNode == null) return true;
+
+    // check recursively if their children are not null
+    if (leftNode != null && rightNode != null) {
+      return leftNode.val == rightNode.val &&
+          (checkSymmetry(leftNode.left, rightNode.right) && checkSymmetry(leftNode.right, rightNode.left));
+    }
+    return false;
+  }
 }
