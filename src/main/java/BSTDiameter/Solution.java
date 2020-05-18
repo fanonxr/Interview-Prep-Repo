@@ -82,4 +82,38 @@ public class Solution {
     // recursively check the sub trees as well while passing in the root as the max for left and min for the right
     return (isValidBSTHelper(root.left, root.val, min) && isValidBSTHelper(root.right, max, root.val));
   }
+
+  // calculating the max depth of the binary tree
+  public static int maxDepth(TreeNode root) {
+    if (root == null) return 0;
+
+    // find the depth for the right and for the left
+    int leftDepth = maxDepth(root.left);
+    int rightDepth = maxDepth(root.right);
+
+    // compare to see which is the max
+    if (leftDepth < rightDepth) return rightDepth + 1;
+    else return leftDepth + 1;
+  }
+
+  public static boolean isSymmetric(TreeNode root) {
+    if (root == null) {
+      return true;
+    }
+    return checkSymmetric(root.left, root.right);
+  }
+
+  public static boolean checkSymmetric(TreeNode leftNode, TreeNode rightNode) {
+    if (leftNode == null && rightNode == null) {
+      return true;
+    }
+
+    // check for the false case
+    if (leftNode != null && rightNode != null) {
+      return (leftNode.val == rightNode.val) &&
+          (checkSymmetric(leftNode.right, rightNode.left) &&
+              checkSymmetric(leftNode.left, rightNode.right));
+    }
+    return false;
+  }
 }

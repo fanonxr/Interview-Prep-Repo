@@ -95,7 +95,7 @@ public class Solution {
   public boolean isSymmetric(TreeNode root) {
     // base case for the root
     if (root == null) return true;
-    // check symmertry recursively
+    // check symmetry recursively
     return checkSymmetry(root.left, root.right);
   }
 
@@ -109,5 +109,45 @@ public class Solution {
           (checkSymmetry(leftNode.left, rightNode.right) && checkSymmetry(leftNode.right, rightNode.left));
     }
     return false;
+  }
+
+  public boolean hasPath(TreeNode root, int target) {
+    // check if root is a tree
+    if (root == null) {
+      return false;
+    }
+
+    // check if we are at a leaf node
+    boolean isLeafNode = root.left == null && root.right == null;
+
+    // check if our path is equal to 0
+    if (isLeafNode && target - root.val == 0) {
+      return true;
+    }
+
+    // check our recursive case for left and right trees
+    return hasPath(root.left, target - root.val) || hasPath(root.right, target - root.val);
+
+  }
+
+  public TreeNode sortedArrayToBST(int[] nums) {
+    return buildBST(nums ,0, nums.length);
+  }
+
+  private TreeNode buildBST(int[] arr,int start, int end) {
+    // check to see if start is greater than the end
+    if (start >= end) {
+      // the list is empty
+      return null;
+    }
+    // find the mid point of the array since I know that will be my root
+    int mid = start + ((end - start) / 2);
+    // create my node from the midpoint
+    TreeNode root = new TreeNode(arr[mid]);
+    // build up from the root on the left and right
+    root.left = buildBST(arr, start, mid);
+    root.right = buildBST(arr, mid + 1, end);
+
+    return root;
   }
 }
