@@ -1,6 +1,24 @@
 package LinkedList;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class Solution {
+
+  public ListNode reverseLinkedList(ListNode head) {
+    ListNode prev = null;
+    ListNode curr = head;
+    ListNode next = null;
+
+    while (curr != null) {
+      next = curr.next; // save the next node
+      curr.next = prev; // reverse the next to the prev
+      prev = curr; // advance prev
+      curr = next; // advance curr
+    }
+
+    return prev; // new head is the head of th list
+  }
 
   public ListNode removeNthFromEnd(ListNode head, int n) {
     ListNode dummy = new ListNode(0);
@@ -65,4 +83,54 @@ public class Solution {
     even.next = oddHead;
     return head;
   }
+
+  public ListNode checkForCycle(ListNode linkedList1, ListNode linkedList2) {
+    // create a hashset to store if we have seen it in one of the list
+    Set<ListNode> set = new HashSet<>();
+    // loop over the first list and add all the contents to it
+    ListNode listHead = linkedList1;
+    while (listHead != null) {
+      // add to the set
+      set.add(listHead);
+      listHead = listHead.next;
+    }
+
+    // now check if the set contains an item from the second list
+    ListNode listHead2 = linkedList2;
+    while (listHead2 != null) {
+      if (set.contains(listHead2)) {
+        return listHead2;
+      }
+      listHead2 = listHead2.next;
+    }
+    return null;
+  }
+
+  public ListNode removeKthToLast(ListNode head, int k) {
+    // create our dummy node to point to the head
+    ListNode dummy = new ListNode(-1);
+    dummy.next = head;
+
+    // create our right bound
+    ListNode rightBound = dummy.next;
+    // create our window
+    while (k > 0) {
+      rightBound = rightBound.next;
+      k--;
+    }
+
+    // create our left bound
+    ListNode leftBound = dummy;
+    // check when the right will be null
+    while (rightBound != null) {
+      // progress the left and right
+      leftBound = leftBound.next;
+      rightBound = rightBound.next;
+    }
+
+    leftBound.next = leftBound.next.next;
+
+    return dummy.next;
+  }
+
 }
