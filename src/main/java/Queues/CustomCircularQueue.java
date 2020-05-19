@@ -21,7 +21,6 @@ public class CustomCircularQueue {
     if (size == queue.length) {
       resize();
     }
-
     // insert the item to the end of the queue
     queue[tail] = x;
 

@@ -5,7 +5,9 @@ import java.util.Map;
 
 public class Solution {
   public static void main(String[] args) {
-
+    int[] testSubArraySum = new int[]{3, 4, 7, 2, -3, 1, 4, 2};
+    int test1 = subArraySum(testSubArraySum, 7);
+    System.out.println(test1);
   }
 
   public static int findMinInRotatedArray(int[] nums) {
@@ -38,7 +40,7 @@ public class Solution {
     return nums[start];
   }
 
-  public int subArraySum(int[] nums, int k) {
+  public static int subArraySum(int[] nums, int k) {
     // use a hashmap to store if we have seen that sum
     Map<Integer, Integer> map = new HashMap<>();
     map.put(0, 1); // we have seen 0 once
@@ -56,6 +58,30 @@ public class Solution {
       map.put(sum, map.getOrDefault(sum, 0) + 1);
     }
     return result;
+  }
+
+
+  public int[][] rotate(int[][] matrix) {
+    // rotating a matrix clockwise
+    int size = matrix.length - 1;
+
+    for (int layer = 0; layer < (matrix.length / 2); layer++) {
+      for (int i = layer; i < size - layer; i++) {
+        // store the elements at each position
+        int top = matrix[layer][i];
+        int right = matrix[i][size - layer];
+        int bottom = matrix[size - layer][size - i];
+        int left = matrix[size - i][layer];
+
+        // swap the elements 90 degrees
+        matrix[layer][i] = left;
+        matrix[i][size - layer] = top;
+        matrix[size - layer][size - i] = right;
+        matrix[size - i][layer] = bottom;
+      }
+    }
+
+    return matrix;
   }
 
 }
